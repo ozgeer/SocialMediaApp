@@ -1,6 +1,7 @@
 package com.example.SocialMediaApp.controllers;
 
 import com.example.SocialMediaApp.dto.requests.PostCreateRequest;
+import com.example.SocialMediaApp.dto.requests.PostUpdateRequest;
 import com.example.SocialMediaApp.entities.Post;
 import com.example.SocialMediaApp.services.post.PostService;
 import lombok.NoArgsConstructor;
@@ -31,5 +32,10 @@ public class PostController {
     @PostMapping
     public Post createPost(@RequestBody  PostCreateRequest newPostRequest){
         return postService.createPost(newPostRequest);
+    }
+
+    @PutMapping
+    public Post updatePost(@PathVariable Long id, @RequestBody PostUpdateRequest postUpdateRequest){
+    return postService.updatePost(id,postUpdateRequest);
     }
 }

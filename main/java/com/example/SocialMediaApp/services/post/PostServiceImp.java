@@ -1,6 +1,7 @@
 package com.example.SocialMediaApp.services.post;
 
 import com.example.SocialMediaApp.dto.requests.PostCreateRequest;
+import com.example.SocialMediaApp.dto.requests.PostUpdateRequest;
 import com.example.SocialMediaApp.entities.Post;
 import com.example.SocialMediaApp.entities.User;
 import com.example.SocialMediaApp.repos.PostRepository;
@@ -16,17 +17,17 @@ public class PostServiceImp implements PostService {
     private PostRepository postRepository;
     private UserService userService;
 
-    public PostServiceImp(PostRepository postRepository,UserService userService){
-        this.postRepository=postRepository;
-        this.userService=userService;
+    public PostServiceImp(PostRepository postRepository, UserService userService) {
+        this.postRepository = postRepository;
+        this.userService = userService;
     }
 
     @Override
     public List<Post> getAllPosts(Optional<Long> userId) {
-        if(userId.isPresent()){
+        if (userId.isPresent()) {
             return postRepository.findByUserId(userId.get());
         }
-       return postRepository.findAll();
+        return postRepository.findAll();
     }
 
     @Override
@@ -36,15 +37,29 @@ public class PostServiceImp implements PostService {
 
     @Override
     public Post createPost(PostCreateRequest newPostRequest) {
-        User user=userService.getOneUser(newPostRequest.getUserId());
-        if(user==null){
+        User user = userService.getOneUser(newPostRequest.getUserId());
+        if (user == null) {
             return null;
         }
-        Post post=new Post();
+        Post post = new Post();
         post.setId(newPostRequest.getId());
         post.setTitle(newPostRequest.getTitle());
         post.setText(newPostRequest.getText());
         post.setUser(user);
         return postRepository.save(post);
     }
+
+    @Override
+    public Post updatePost(Long id, PostUpdateRequest postUpdateRequest) {
+        Optional<Post> availablePost = postRepository.findById(id);
+        if (availablePost.isPresent()) {
+            Post post = availablePost.get();
+            post.setText(postUpdateRequest.getText());
+            post.setTitle(postUpdateRequest.getTitle());
+            postRepository.save(post);
+            return post;
+        }
+        return null;
+    }
 }
+

@@ -1,6 +1,7 @@
 package com.example.SocialMediaApp.services.post;
 
 import com.example.SocialMediaApp.dto.requests.PostCreateRequest;
+import com.example.SocialMediaApp.dto.requests.PostUpdateRequest;
 import com.example.SocialMediaApp.entities.Post;
 
 import java.util.List;
@@ -12,4 +13,6 @@ public interface PostService {
     Post getPostById(Long postId);
 
     Post createPost(PostCreateRequest newPostRequest);
+
+    Post updatePost(Long id, PostUpdateRequest postUpdateRequest);
 }
