@@ -24,19 +24,19 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public User getOneUser(Long userId) {
+    public User getAUserById(Long userId) {
         return userRepository.findById(userId).orElse(null);
     }
 
     @Override
     public User updateUser(Long userId, User newUser) {
-        Optional<User> user = userRepository.findById(userId);
-        if(user.isPresent()){
-            User foundUser=user.get();
-            foundUser.setUserName(newUser.getUserName());
-            foundUser.setPassword(newUser.getPassword());
-            userRepository.save(foundUser);
-            return foundUser;
+        Optional<User> availableUser = userRepository.findById(userId);
+        if(availableUser.isPresent()){
+            User user=availableUser.get();
+            user.setUserName(newUser.getUserName());
+            user.setPassword(newUser.getPassword());
+            userRepository.save(user);
+            return user;
         }
         else return null;
         }
