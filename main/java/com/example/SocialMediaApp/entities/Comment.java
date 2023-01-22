@@ -8,9 +8,9 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "commants")
+@Table(name = "comments")
 @Data
-public class Command {
+public class Comment {
     @Id
     @Column(name = "id")
     private Long id;
