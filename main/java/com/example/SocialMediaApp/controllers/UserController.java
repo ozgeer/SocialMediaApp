@@ -14,7 +14,6 @@ public class UserController {
 
     private final UserService userService;
 
-
     @GetMapping
     public List<User> getAllUsers(){
     return userService.getAllUsers();
@@ -26,7 +25,7 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
-    public User getOneUser(@PathVariable Long userId){
+    public User getAUserById(@PathVariable Long userId){
         //custom exception
        return userService.getOneUser(userId);
     }
